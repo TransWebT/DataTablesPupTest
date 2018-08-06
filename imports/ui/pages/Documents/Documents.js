@@ -10,12 +10,17 @@ import DocumentsCollection from '../../../api/Documents/Documents';
 import { timeago, monthDayYearAtTime } from '../../../modules/dates';
 import Loading from '../../components/Loading/Loading';
 import BlankState from '../../components/BlankState/BlankState';
+import MyDataTable from './MyDataTable';
 
 const StyledDocuments = styled.div`
   table tbody tr td {
     vertical-align: middle;
   }
 `;
+
+this.state = {
+  names: [],
+};
 
 const handleRemove = (documentId) => {
   if (confirm('Are you sure? This is permanent!')) {
@@ -35,6 +40,7 @@ const Documents = ({
   <StyledDocuments>
     <div className="page-header clearfix">
       <h4 className="pull-left">Documents</h4>
+      <MyDataTable names={this.state.names} />
       <Link className="btn btn-success pull-right" to={`${match.url}/new`}>Add Document</Link>
     </div>
     {documents.length ?
@@ -77,7 +83,7 @@ const Documents = ({
             </tr>
           ))}
         </tbody>
-      </Table> : <BlankState
+      </Table>: <BlankState
         icon={{ style: 'solid', symbol: 'file-alt' }}
         title="You're plum out of documents, friend!"
         subtitle="Add your first document by clicking the button below."
